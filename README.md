@@ -97,11 +97,24 @@ I ran a few t-tests with the features in respect to tax_value. Also a few to see
 I found that square footage, bedroom count, and bathroom count were all statistically significant. They are not independent to property value. Bedroom count and bathroom count were also dependent on each other. 
 <br>
 
-## Modeling
+## Modeling :chart_with_upwards_trend:
 Goal: develop a regression model that performs better than the baseline.
 
 
 
 
+## Data Dictionary 
 
+| Column Name                  | Renamed   | Info                                            |
+|------------------------------|-----------|-------------------------------------------------|
+| parcelid                     | N/A       | ID of the property (unique)                     |
+| bathroomcnt                  | baths     | number of bathrooms                             |
+| bedroomcnt                   | beds      | number of bedrooms                              |
+| calculatedfinishedsquarefeet | sqft      | number of square feet                           |
+| fips                         | N/A       | FIPS code (for county)                          |
+| propertylandusetypeid        | N/A       | Type of property                                |
+| yearbuilt                    | N/A       | The year the property was built                 |
+| taxvaluedollarcnt            | tax_value | Property's tax value in dollars                 |
+| transactiondate              | N/A       | Day the property was purchased                  |
+| age                          | N/A       | 2017-yearbuilt (to see the age of the property) |
     
