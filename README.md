@@ -75,6 +75,14 @@ TBA
 ## Acquire :bulb:
 Goal: Have Zillow dataframe ready to prepare in acquire.py
 In this stage, I used a connection URL to access the CodeUp database. Using a SQL query, I brought in the Zillow dataset with only properties set for single use, and were sold in between May-August 2017. I turned it into a pandas dataframe and created a .csv in order to use it for the rest of the pipeline. 
+| acquire.py Functions | Purpose                                                        |
+|----------------------|----------------------------------------------------------------|
+| get_connection()     | Creates a connection link so we can access our data            |
+| new_zillow_data()    | Uses a SQL query to return Zillow into a data frame            |
+| get_zillow_data()    | Returns Zillow as a data frame, and creates a local Zillow.csv |
+
+
+
 <br>
 
 ## Prep :soap:
