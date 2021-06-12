@@ -1,5 +1,5 @@
 # Estimating Home Values from Zillow
-![](https://github.com/annah-vu/regression_project/blob/main/assets/1ac.jpg)
+<img src = "1ac.jpg">
 ### Table of Contents
 - Project Overview
 - Project Description
