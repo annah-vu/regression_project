@@ -8,22 +8,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.linear_model import LinearRegression
 
-def remove_outliers(df, column):
-    '''
-    takes in a df and a feature, removes points outside of the interquartile range, and returns new outlier-free df
-    '''
-    q1 = df[column].quantile(0.25)
-    q3 = df[column].quantile(0.75)
-    iqr = q3 - q1
-    lower_boundary = q1 - (1.5*iqr)
-    upper_boundary = q3 + (1.5*iqr)
-    df = df.loc[(df[column] > lower_boundary) and (df[column] < upper_boundary)]
-    
-    return df
-    
+
 def remove_outlier(df):
     '''
-    Another outlier removal function. This one will remove values that are 3 standard deviations above or below the mean
+    This function will remove values that are 3 standard deviations above or below the mean for sqft, baths, beds, and tax_value.         (Our MVP values)
     '''
     new_df = df[(np.abs(stats.zscore(df['sqft'])) < 3)]
     new_df = df[(np.abs(stats.zscore(df['baths'])) < 3)]
@@ -34,15 +22,20 @@ def remove_outlier(df):
 def clean_zillow(df):
     '''
     this function takes in an unclean zillow df and does the following:
-    1.) keeps only columns we need for the project
+    1.) keeps only columns we need are considering. 'parcelid', 'calculatedfinishedsquarefeet', 'bathroomcnt', 'bedroomcnt',             'taxvaluedollarcnt', 'yearbuilt','fips'
     2.) drops nulls
-    3.) renames columns
+    3.) renames columns for ease of use.
+    4.) creates new columns that we may use.
     '''
     #select features for df
     features = ['parcelid', 'calculatedfinishedsquarefeet', 'bathroomcnt', 'bedroomcnt', 'taxvaluedollarcnt', 'yearbuilt','fips']
     df = df[features]
+    #for the yearbuilt column, fill in nulls with 2017.
     df['yearbuilt'].fillna(2017, inplace = True)
+    #create a new column named 'age', which is 2017 minus the yearbuilt
     df['age'] = 2017-df['yearbuilt']
+    
+    #drop duplicates in parcelid
     df = df.drop_duplicates(subset=['parcelid'])
     
     #rename columns for easier use
@@ -57,29 +50,13 @@ def clean_zillow(df):
     
     #set index
     df = df.set_index('parcel_id')
-    #drop nulls
+    #drop nulls in sqft and tax_value
     df = df.dropna(subset=['sqft','tax_value'])
-    #drop year_built
+    #drop year_built, we can just use age.
     df = df.drop(columns=['yearbuilt'])
     
     return df
     
-def split_continuous(df):
-    """
-    Takes in a df
-    Returns train, validate, and test DataFrames
-    """
-    # Create train_validate and test datasets
-    train_validate, test = train_test_split(df, test_size=0.2, random_state=123)
-    # Create train and validate datsets
-    train, validate = train_test_split(train_validate, test_size=0.3, random_state=123)
-
-    # Take a look at your split datasets
-
-    print(f"train -> {train.shape}")
-    print(f"validate -> {validate.shape}")
-    print(f"test -> {test.shape}")
-    return train, validate, test
 
 
 def train_validate_test(df, target):
@@ -179,16 +156,21 @@ def min_max_scale(X_train, X_validate, X_test, numeric_cols):
 def clean_zillow_taxes(df):
     '''
     this function takes in an unclean zillow df and does the following:
-    1.) keeps only columns we need for the project
+    1.) keeps only columns we need for our model from the entire dataset, plus columns to calculate tax_rate
     2.) drops nulls
     3.) renames columns
     '''
     #select features for df
     features = ['parcelid', 'calculatedfinishedsquarefeet', 'bathroomcnt', 'bedroomcnt', 'taxvaluedollarcnt', 'yearbuilt','fips', 'taxamount']
     df = df[features]
+    #fill in nulls of year_built with 2017
     df['yearbuilt'].fillna(2017, inplace = True)
+    #calculate age by subtracting yearbuilt from 2017
     df['age'] = 2017-df['yearbuilt']
+    #calculate tax_rate by having taxamount divided by taxvaluedollarcnt
     df['tax_rate'] = df['taxamount'] / df['taxvaluedollarcnt']
+    
+    #drop duplicates in parcelid
     df = df.drop_duplicates(subset=['parcelid'])
     
     #rename columns for easier use
@@ -213,7 +195,7 @@ def clean_zillow_taxes(df):
 
 def remove_outlier_tax(df):
     '''
-    Another outlier removal function. This one will remove values that are 3 standard deviations above or below the mean
+    Another outlier removal function. This one will remove values that are 3 standard deviations above or below the mean for our MVP columns, and for our tax_value, tax_amounts.
     '''
     new_df = df[(np.abs(stats.zscore(df['sqft'])) < 3)]
     new_df = df[(np.abs(stats.zscore(df['baths'])) < 3)]
