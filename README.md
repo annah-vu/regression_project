@@ -229,4 +229,6 @@ We took a very large Zillow dataset and condensed it down to 37,927 rows to work
  - Have a copy of my acquire, prep, explore .py files. You can adjust the features to use, how to handle outliers, etc. or just keep it the way I have it! 
  - My final notebook has all of the steps outlined, and it is really easy to adjust parameters.
  
- - 
+ - https://trello.com/b/mVk9grFF/zillow 
+ 
+ - Use Trello Board link to help you get an idea of the steps. 
