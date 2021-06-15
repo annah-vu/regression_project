@@ -23,30 +23,6 @@ def plot_pairplot(train, cols, hue=None):
     plt.show()
     
     
-def plot_categorical_and_continuous_vars(categorical_var, continuous_var, df):
-    """
-    This function that takes in a string name of a categorical variable, 
-    a string name from a continuous variable and the df they live in and
-    displays 4 different plots.
-    """
-    plt.suptitle(f'{continuous_var} by {categorical_var}', fontsize=18)
-    
-    sns.lineplot(x=categorical_var, y=continuous_var, data=df)
-    plt.xlabel(categorical_var, fontsize=12)
-    plt.ylabel(continuous_var, fontsize=12)
-    
-    sns.catplot(x=categorical_var, y=continuous_var, data=df, kind='box', palette='Greens')
-    plt.xlabel(categorical_var, fontsize=12)
-    plt.ylabel(continuous_var, fontsize=12)
-    
-    sns.catplot(x=categorical_var, y=continuous_var, data=df, kind="swarm", palette='Blues')
-    plt.xlabel(categorical_var, fontsize=12)
-    plt.ylabel(continuous_var, fontsize=12)
-    
-    sns.catplot(x=categorical_var, y=continuous_var, data=df, kind="bar", palette='Purples')
-    plt.xlabel(categorical_var, fontsize=12)
-    plt.ylabel(continuous_var, fontsize=12)
-    
     
 def correlation_exploration(train, x_string, y_string):
     '''
