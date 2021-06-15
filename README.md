@@ -173,6 +173,21 @@ Test:
 Beats the baseline! 
 <br>
 
+## Conclusion
+
+To conclude...
+We took a very large Zillow dataset and condensed it down to 37,927 rows to work with. We dropped rows with outliers of 3 standard deviations above or below the mean for that column. 
+
+ -  Square footage was the best feature to determine a property's value. As square footage increased, it seemed that value also went up.
+
+ -  The more bedrooms and bathrooms a house has, the more it was worth. These number of rooms also related to square footage in a positive relationship.
+
+ -  Age was not a huge factor in value, but was helpful in our model's predictions.
+
+ -  Using all of square footage, number of bedrooms, number of bathrooms, and age into a model performed better than the baseline. 
+
+ -  All three counties have similar tax rates, but LA has the highest.
+
 ## Delivery
 I will be giving a presentation over my findings!
 
@@ -201,6 +216,6 @@ I will be giving a presentation over my findings!
 
 ## How to Recreate Project
 
- - You'll need your own username/pass/host credentials. 
- - Have a copy of my acquire, prep, explore .py files. You can adjust the features to use, how to handle outliers, etc. 
+ - You'll need your own username/pass/host credentials in order to use the get_connection function in my acquire.py
+ - Have a copy of my acquire, prep, explore .py files. You can adjust the features to use, how to handle outliers, etc. or just keep it the way I have it! 
  - My final notebook has all of the steps outlined, and it is really easy to adjust parameters. 
